@@ -1,0 +1,9 @@
+C:\Users\family\documents\visual studio 2010\Projects\IRCBot\IRCBot\bin\Debug\scriptFiend.s3db
+C:\Users\family\documents\visual studio 2010\Projects\IRCBot\IRCBot\bin\Debug\scriptFiend.exe.config
+C:\Users\family\documents\visual studio 2010\Projects\IRCBot\IRCBot\bin\Debug\scriptFiend.exe
+C:\Users\family\documents\visual studio 2010\Projects\IRCBot\IRCBot\bin\Debug\scriptFiend.pdb
+C:\Users\family\documents\visual studio 2010\Projects\IRCBot\IRCBot\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\family\documents\visual studio 2010\Projects\IRCBot\IRCBot\obj\x86\Debug\scriptFiend.exe
+C:\Users\family\documents\visual studio 2010\Projects\IRCBot\IRCBot\obj\x86\Debug\scriptFiend.pdb
+C:\Users\family\documents\visual studio 2010\Projects\IRCBot\IRCBot\bin\Debug\System.Data.SQLite.dll
+C:\Users\family\documents\visual studio 2010\Projects\IRCBot\IRCBot\bin\Debug\System.Data.SQLite.xml
