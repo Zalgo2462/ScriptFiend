@@ -47,6 +47,10 @@ namespace org.scriptFiend.IRC
         public List<String> Messages { get; set; }
 
         public List<IRCUser> Users { get; set; }
+
+        public List<IRCUser> Admins { get; set; }
+
+        public List<IRCUser> RegisterQueue { get; set; }
         
         private StreamWriter Writer { get; set; }
 
@@ -62,6 +66,7 @@ namespace org.scriptFiend.IRC
 
         private Object switchLock = new Object();
 
+
         public IRCServer(string add, int port, IRCClient cl) {
             this.ADDRESS = add;
             this.PORT = port;
@@ -71,6 +76,8 @@ namespace org.scriptFiend.IRC
             this.PrivateLines = new List<PrivateLine>();
             this.CTCPLines = new List<CTCPLine>();
             this.Users = new List<IRCUser>();
+            this.Admins = new List<IRCUser>();
+            this.RegisterQueue = new List<IRCUser>();
             this.Alive = true;
 
             this.TCP = new TcpClient(ADDRESS, PORT);
@@ -95,7 +102,14 @@ namespace org.scriptFiend.IRC
         {
             lock (readLock)
             {
-                return Reader.ReadLine();
+                try
+                {
+                    return Reader.ReadLine();
+                }
+                catch (IOException e)
+                {
+                    return null;
+                }
             }
         }
 
@@ -129,7 +143,7 @@ namespace org.scriptFiend.IRC
 
         public void loadChannels()
         {
-            foreach(string chan in Client.DBC.getChannels(ADDRESS)) {
+            foreach(string chan in DBC.getChannels(ADDRESS)) {
                 if (!containsChannel(chan))
                 {
                     addChannel(chan);
@@ -140,7 +154,7 @@ namespace org.scriptFiend.IRC
         public void saveChannels()
         {
             foreach(ChannelLine chan in JoinedChannels) {
-                Client.DBC.addChannel(chan.Name, ADDRESS);
+                DBC.addChannel(chan.Name, ADDRESS);
             }
         }
 
@@ -383,7 +397,59 @@ namespace org.scriptFiend.IRC
         }
 
 
-        
+        public bool addAdmin(IRCUser user)
+        {
+            if (!containsAdmin(user))
+            {
+                Admins.Add(user);
+                return true;
+            }
+            return false;
+        }
+
+        public bool removeAdmin(IRCUser user)
+        {
+            if (containsAdmin(user))
+            {
+                Admins.Remove(user);
+                return true;
+            }
+            return false;
+        }
+
+        public bool containsAdmin(IRCUser user)
+        {
+            return Admins.Contains(user);
+        }
+
+
+        public bool addToRegQueue(IRCUser user)
+        {
+            if (!inRegQueue(user))
+            {
+                RegisterQueue.Add(user);
+                return true;
+            }
+            return false;
+        }
+
+        public bool removeFromRegQueue(IRCUser user)
+        {
+            if (inRegQueue(user))
+            {
+                RegisterQueue.Remove(user);
+                return true;
+            }
+            return false;
+        }
+
+        public bool inRegQueue(IRCUser user)
+        {
+            return RegisterQueue.Contains(user);
+        }
+
+
+
         private bool isCTCP(string input) {
             string message = input.Substring(input.IndexOf(":", 1) + 1);
             char[] messageArray = message.ToCharArray();
@@ -493,24 +559,32 @@ namespace org.scriptFiend.IRC
 
                     if (!reacted && inputLine.Contains("PRIVMSG ScriptFiend :"))
                     { 
+                        string userName = inputLine.Substring(1, inputLine.IndexOf('!') - 1);
+                        if (!containsUser(userName))
+                        {
+                            addUser(userName);
+                        }
                         if (isCTCP(inputLine))
                         {
-                            string userName = inputLine.Substring(1, inputLine.IndexOf('!') - 1);
-                            if (!containsUser(userName))
-                            {
-                                addUser(userName);
-                            }
+
                             if (!containsCTCPLine(userName))
                             {
-                                addCTCPLine(userName);                                
+                                addCTCPLine(userName);
                             }
                             getCTCPLine(userName).react(inputLine);
                             reacted = true;
-                        }  
-                      
+                        }
+                        else
+                        {
+                            if (!containsPrivateLine(userName))
+                            {
+                                addPrivateLine(userName);
+                            }
+                            getPrivateLine(userName).react(inputLine);
+                            reacted = true;
+                        }                      
                         //ADD PRIVMSG LINES HERE
                         Messages.Add(inputLine);
-                        reacted = true;
                     }
 
                     if (!reacted && inputLine.Contains("INVITE ScriptFiend :")) {

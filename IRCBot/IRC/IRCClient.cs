@@ -18,20 +18,18 @@ namespace org.scriptFiend.IRC
 
         public InputManager IM { get; set; }
 
-        public dbConnector DBC { get; set; }
-
         public List<IRCServer> Servers { get; set; }
 
 
         public IRCClient()
         {
-            IM = new InputManager(this);
-            DBC = new dbConnector();
+            IM = new InputManager(this);            
             Servers = new List<IRCServer>();
         }
 
         public void loadServers()
         {
+            Console.WriteLine("Loading Servers");
             foreach (KeyValuePair<string, int> server in DBC.getServers())
             {
                 if (!containsServer(server.Key))

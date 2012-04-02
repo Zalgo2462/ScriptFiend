@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using org.scriptFiend.Modules;
+using org.scriptFiend.Modules.Private;
 
 namespace org.scriptFiend.IRC.Lines
 {
@@ -18,9 +19,21 @@ namespace org.scriptFiend.IRC.Lines
             User = user;
             Messages = new List<string>();
             Modules = new List<Module>();
+            Modules.Add(new Login(this));
+            Modules.Add(new Register(this));
         }
 
-        public void writeLine(string str) { }
-        public void react(string line) { }
+        public void writeLine(string str) 
+        {
+            Server.writeLine("PRIVMSG " + User.Name + " :" + str);
+        }
+        public void react(string line) 
+        {
+            foreach (Module module in Modules)
+            {
+                module.react(line);
+            }
+            Messages.Add(line);
+        }
     }
 }

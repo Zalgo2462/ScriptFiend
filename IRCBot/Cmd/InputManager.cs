@@ -33,14 +33,14 @@ namespace org.scriptFiend.Cmd
             {
                 while ((input = Console.ReadLine()) != null)
                 {
+                    string[] splitInput = input.Split(new Char[] { ' ' });
                     if (input.Equals("exit", StringComparison.OrdinalIgnoreCase))
                     {
                         client.kill();
                         inputThread.Abort();
                       }
                     else if (input.StartsWith("say", StringComparison.OrdinalIgnoreCase))
-                    {
-                        string[] splitInput = input.Split(new Char[] { ' ' });
+                    {                        
                         try
                         {
                             StringBuilder sb = new StringBuilder();
@@ -78,7 +78,6 @@ namespace org.scriptFiend.Cmd
                     }
                     else if (input.StartsWith("raw", StringComparison.OrdinalIgnoreCase))
                     {
-                        string[] splitInput = input.Split(new Char[] { ' ' });
                         try
                         {
                             StringBuilder sb = new StringBuilder();
@@ -108,7 +107,6 @@ namespace org.scriptFiend.Cmd
                     }
                     else if (input.StartsWith("join ", StringComparison.OrdinalIgnoreCase))
                     {
-                        string[] splitInput = input.Split(new Char[] { ' ' });
                         try
                         {
                             IRCServer serv = client.getServer(splitInput[1]);
@@ -137,7 +135,6 @@ namespace org.scriptFiend.Cmd
                     }
                     else if (input.StartsWith("part", StringComparison.OrdinalIgnoreCase))
                     {
-                        string[] splitInput = input.Split(new Char[] { ' ' });
                         try
                         {
                             IRCServer serv = client.getServer(splitInput[1]);
@@ -165,7 +162,6 @@ namespace org.scriptFiend.Cmd
                     }
                     else if (input.StartsWith("joinServer", StringComparison.OrdinalIgnoreCase))
                     {
-                        string[] splitInput = input.Split(new Char[] { ' ' });
                         try
                         {
                             int port = 0;
@@ -186,6 +182,12 @@ namespace org.scriptFiend.Cmd
                             Console.WriteLine("Malformed Request");
                             Console.WriteLine(e.Message);
                         }
+                    }
+                    else if (input.StartsWith("register"))
+                    {
+                        IRCServer serv = client.getServer(splitInput[1]);
+                        IRCUser user = serv.getUser(splitInput[2]);
+                        serv.addToRegQueue(user);
                     }
                     else if (input.Equals("cls", StringComparison.OrdinalIgnoreCase))
                     {

@@ -15,7 +15,7 @@ namespace org.scriptFiend.Modules.Channel.Admin
 
         public override bool run(string input)
         {
-            if (getUser(input).Equals(IrcBot.admin))
+            if (line.Server.containsAdmin(line.Server.getUser(getUser(input))))
             {
                 if (!line.Server.Client.kill())
                 {

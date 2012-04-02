@@ -28,7 +28,7 @@ namespace org.scriptFiend.Modules
 
         public override bool react(string input)
         {
-            if (getMessage(input).StartsWith(ActivateTrigger,StringComparison.OrdinalIgnoreCase))
+            if (getMessage(input).StartsWith(ActivateTrigger, StringComparison.OrdinalIgnoreCase))
             {
                 return run(input);
             }
