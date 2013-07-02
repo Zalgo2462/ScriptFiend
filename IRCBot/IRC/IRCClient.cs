@@ -9,7 +9,7 @@ using org.scriptFiend.SQL;
 
 namespace org.scriptFiend.IRC
 {
-    class IRCClient
+    public class IRCClient
     {
         // User information defined in RFC 2812 (Internet Relay Chat: Client Protocol) to be sent to the irc server 
         public string USER = "USER SFiend 0 * :A Quite Fiendish Bot For Scripts";

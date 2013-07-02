@@ -6,21 +6,22 @@ using org.scriptFiend.IRC.Lines;
 
 namespace org.scriptFiend.Modules.CTCP
 {
-    class Finger : CTCPModule
+    public class Finger : CTCPModule
     {
-        public Finger(CTCPLine line)
-            : base(line, "finger")
+        private const string TAG = "finger";
+        public Finger(CTCPLine line) : base(line)
         {
         }
 
         public override bool run(string input)
         {
-            string message = getMessage(input);
-            if (message.Equals("finger", StringComparison.OrdinalIgnoreCase))
-            {
-                line.writeLine("FINGER Author: Zalgo2462");
-            }
+            line.writeLine("FINGER Author: Zalgo2462");
             return true;
+        }
+
+        public override bool activate(string input)
+        {
+            return getMessage(input).Equals("finger", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

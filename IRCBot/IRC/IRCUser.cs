@@ -6,7 +6,7 @@ using org.scriptFiend.IRC.Lines;
 
 namespace org.scriptFiend.IRC
 {
-    class IRCUser
+    public class IRCUser
     {
         public IRCServer Server { get; set; }
         public List<ChannelLine> Channels { get; set; }
@@ -27,12 +27,7 @@ namespace org.scriptFiend.IRC
             Hostname = "";
             Channels = new List<ChannelLine>();
             ChannelModes = new Dictionary<ChannelLine,List<char>>();
-            whois();
-        }
-
-        public void updateChannels()
-        {
-            whois();
+            //whois();
         }
 
         private void whois()

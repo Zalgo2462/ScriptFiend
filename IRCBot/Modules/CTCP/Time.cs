@@ -6,21 +6,22 @@ using org.scriptFiend.IRC.Lines;
 
 namespace org.scriptFiend.Modules.CTCP
 {
-    class Time : CTCPModule
+    public class Time : CTCPModule
     {
-        public Time(CTCPLine line)
-            : base(line, "time")
+        private const string TAG = "time";
+        public Time(CTCPLine line) : base(line)
         {
         }
 
         public override bool run(string input)
         {
-            string message = getMessage(input);
-            if (message.Equals("time", StringComparison.OrdinalIgnoreCase))
-            {
-                line.writeLine("TIME " + DateTime.Now.ToString());
-            }
+            line.writeLine("TIME " + DateTime.Now.ToString());
             return true;
+        }
+
+        public override bool activate(string input)
+        {
+            return getMessage(input).Equals("time", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

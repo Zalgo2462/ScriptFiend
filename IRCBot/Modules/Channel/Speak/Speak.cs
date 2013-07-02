@@ -7,18 +7,24 @@ using org.scriptFiend.IRC.Lines;
 
 namespace org.scriptFiend.Modules.Channel.Speak
 {
-    class Speak : Module
+    public class Speak : Module
     {
-        public Speak(ChannelLine chan) : base (chan, "~speak ")
+        private const string TAG = "~speak";
+        public Speak(ChannelLine chan) : base (chan)
         {
         }
 
         public override bool run(string input)
         {
             string message = getMessage(input);
-            string sayMessage = removeTag(ActivateTrigger, message);
+            string sayMessage = removeTag(TAG, message);
             line.writeLine(sayMessage);
             return true;
+        }
+
+        public override bool activate(string input)
+        {
+            return getMessage(input).StartsWith(TAG);
         }
     }
 }

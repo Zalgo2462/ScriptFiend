@@ -6,12 +6,12 @@ using org.scriptFiend.IRC.Lines;
 
 namespace org.scriptFiend.Modules.Channel.Admin
 {
-    class Part : Module
+    public class Part : Module
     {
-        new ChannelLine line { get; set; }
+        private const string TAG = "~part";
+        private new ChannelLine line { get; set; }
 
-        public Part(ChannelLine chan)
-            : base(chan, "~part")
+        public Part(ChannelLine chan) : base(chan)
         {
             line = chan;
         }
@@ -23,6 +23,13 @@ namespace org.scriptFiend.Modules.Channel.Admin
                 line.part();
             }
             return true;
+        }
+
+        public override bool activate(string input)
+        {
+            return line.Server.containsAdmin(line.Server.getUser(getUser(input))) &&
+                getMessage(input).StartsWith(TAG);
+                
         }
     }
 }

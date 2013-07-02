@@ -6,23 +6,26 @@ using org.scriptFiend.IRC.Lines;
 
 namespace org.scriptFiend.Modules.Channel.Admin
 {
-    class Kill : Module
+    public class Kill : Module
     {
-        public Kill(ChannelLine chan)
-            : base(chan, "~kill")
+        private const string TAG = "~kill";
+        public Kill(ChannelLine chan) : base(chan)
         {
         }
 
         public override bool run(string input)
         {
-            if (line.Server.containsAdmin(line.Server.getUser(getUser(input))))
+            if (!line.Server.Client.kill())
             {
-                if (!line.Server.Client.kill())
-                {
-                    line.writeLine("Failed to quit: " + line.Server.ADDRESS);
-                }
+                line.writeLine("Failed to quit: " + line.Server.ADDRESS);
             }
             return true;
+        }
+
+        public override bool activate(string input)
+        {
+            return line.Server.containsAdmin(line.Server.getUser(getUser(input))) && 
+                getMessage(input).StartsWith(TAG);
         }
     }
 }

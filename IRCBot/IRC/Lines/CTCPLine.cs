@@ -6,7 +6,7 @@ using org.scriptFiend.Modules;
 
 namespace org.scriptFiend.IRC.Lines
 {
-    class CTCPLine : Line
+    public class CTCPLine : Line
     {
         public IRCServer Server { get; set; }
         public IRCUser User { get; set; }

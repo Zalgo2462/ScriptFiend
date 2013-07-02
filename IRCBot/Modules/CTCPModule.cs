@@ -6,10 +6,9 @@ using org.scriptFiend.IRC.Lines;
 
 namespace org.scriptFiend.Modules
 {
-    abstract class CTCPModule : Module
+    public abstract class CTCPModule : Module
     {
-        public CTCPModule(CTCPLine line, string trigger)
-            : base(line, trigger)
+        public CTCPModule(CTCPLine line) : base(line)
         {
         }
 
@@ -24,15 +23,6 @@ namespace org.scriptFiend.Modules
         {
             string message = input.Substring(input.IndexOf(":", 1) + 1);
             return message.Trim((char)control);
-        }
-
-        public override bool react(string input)
-        {
-            if (getMessage(input).StartsWith(ActivateTrigger, StringComparison.OrdinalIgnoreCase))
-            {
-                return run(input);
-            }
-            return false;
-        }
+        }       
     }
 }

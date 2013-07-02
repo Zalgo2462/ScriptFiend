@@ -8,7 +8,7 @@ using org.scriptFiend.IRC.Lines;
 
 namespace org.scriptFiend.Cmd
 {
-    class InputManager
+    public class InputManager
     {
         Thread inputThread;
 

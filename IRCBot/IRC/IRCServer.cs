@@ -10,7 +10,7 @@ using org.scriptFiend.IRC.Lines;
 
 namespace org.scriptFiend.IRC
 {
-    class IRCServer
+    public class IRCServer
     {
         public string ADDRESS;
         public int PORT;
@@ -106,7 +106,7 @@ namespace org.scriptFiend.IRC
                 {
                     return Reader.ReadLine();
                 }
-                catch (IOException e)
+                catch (IOException ignored)
                 {
                     return null;
                 }
@@ -478,23 +478,26 @@ namespace org.scriptFiend.IRC
                     string[] splitInput = inputLine.Split(new Char[] { ' ' });
 
                     foreach(ChannelLine channel in JoinedChannels) {
+                        //Pass off processing to the channel
                         if (inputLine.Contains("PRIVMSG " + channel.Name + " :"))
                         {
                             channel.react(inputLine);
                             reacted = true;
                             break;
                         }
+                        //ScriptFiend was kicked from the channel. Remove this channel from joined channels.
                         else if(inputLine.Contains("KICK " + channel.Name + " ScriptFiend :")) {
                             removeChannel(channel.Name);
                             reacted = true;
                             break;
                         }
+                        //ScriptFiend witnessed a user mode change in the channel
                         else if (inputLine.Contains("MODE " + channel.Name) && splitInput.Length == 5)
                         {
                             string username = splitInput[4];
                             IRCUser user = getUser(username);
                             char[] operations = splitInput[3].ToCharArray();
-                                char currentOp = ' ';
+                            char currentOp = ' ';
                             foreach(char operation in operations) 
                             {
                                 if (operation == '+' || operation == '-')
@@ -523,6 +526,7 @@ namespace org.scriptFiend.IRC
                             reacted = true;
                             break;
                         }
+                        //ScriptFiend witnessed a channel mode change in the channel
                         else if (inputLine.Contains("MODE " + channel.Name) && splitInput.Length == 4)
                         {
                             char[] operations = splitInput[3].ToCharArray();
@@ -556,7 +560,7 @@ namespace org.scriptFiend.IRC
                             break;
                         }
                     }
-
+                    //Pass off processing to the CTCP and PRIVMSG lines
                     if (!reacted && inputLine.Contains("PRIVMSG ScriptFiend :"))
                     { 
                         string userName = inputLine.Substring(1, inputLine.IndexOf('!') - 1);
@@ -583,19 +587,17 @@ namespace org.scriptFiend.IRC
                             getPrivateLine(userName).react(inputLine);
                             reacted = true;
                         }                      
-                        //ADD PRIVMSG LINES HERE
                         Messages.Add(inputLine);
                     }
-
+                    //Join channels based on invite requests
                     if (!reacted && inputLine.Contains("INVITE ScriptFiend :")) {
                         string channelName = inputLine.Substring(inputLine.IndexOf(":", 1) + 1);
                         string user = inputLine.Substring(1, inputLine.IndexOf('!') -1);
                         addChannel(channelName);
-                        getChannel(channelName).writeLine(user + " has requested that the fiend joins this channel.");
+                        getChannel(channelName).writeLine(user + " has requested that I join this channel.");
                         reacted = true;
                     }
-                                        
-
+                    //Reply to PING requests
                     if (!reacted && splitInput.Length == 2 && splitInput[0] == "PING")
                     {
                         string PongReply = splitInput[1];                        
@@ -603,7 +605,7 @@ namespace org.scriptFiend.IRC
                         Console.WriteLine("PONG " + PongReply);
                         reacted = true;
                     }
-
+                    //ScriptFiend witnessed a user join or part a channel or change their nick
                     if (!reacted && splitInput.Length == 3)
                     {
                         if (splitInput[1] == "JOIN")
@@ -633,7 +635,7 @@ namespace org.scriptFiend.IRC
                             ircUser.Name = splitInput[2].Substring(1);
                         }
                     }
-
+                    //Proccess RPL_NAMREPLY messages (Replys from the /names command)
                     if (!reacted && splitInput.Length > 5 && splitInput[1] == "353")
                     {
                         ChannelLine channel = getChannel(splitInput[4]);
@@ -646,7 +648,7 @@ namespace org.scriptFiend.IRC
                             reacted = true;
                         }
                     }
-
+                    //Proccess RPL_WHOISUSER messages
                     if (!reacted && splitInput.Length >= 7 && splitInput[1] == "311")
                     {
                         if (!containsUser(splitInput[3]))
@@ -659,7 +661,7 @@ namespace org.scriptFiend.IRC
                         user.Realname = inputLine.Substring(inputLine.IndexOf('*') + 3);
                         reacted = true;
                     }
-
+                    //Proccess RPL_WHOISCHANNELS messages
                     if (!reacted && splitInput.Length >= 5 && splitInput[1] == "319")
                     {
                         if (!containsUser(splitInput[3]))
@@ -707,6 +709,7 @@ namespace org.scriptFiend.IRC
                         }
                         reacted = true;
                     }
+                    //Proccess RPL_CHANNELMODEIS messages
                     if (!reacted && splitInput.Length == 5 && splitInput[1] == "324")
                     {
                         ChannelLine channel = getChannel(splitInput[3]);

@@ -6,21 +6,22 @@ using org.scriptFiend.IRC.Lines;
 
 namespace org.scriptFiend.Modules.CTCP
 {
-    class Version : CTCPModule 
+    public class Version : CTCPModule 
     {
-        public Version(CTCPLine line)
-            : base(line, "version")
+        private const string TAG = "version";
+        public Version(CTCPLine line)  : base(line)
         {
         }
 
         public override bool run(string input)
         {
-            string message = getMessage(input);
-            if (message.Equals("version", StringComparison.OrdinalIgnoreCase))
-            {
-                line.writeLine("VERSION ScriptFiendClient:1.0:" + Environment.OSVersion.VersionString);
-            }
+            line.writeLine("VERSION ScriptFiendClient:1.0:" + Environment.OSVersion.VersionString);
             return true;
+        }
+
+        public override bool activate(string input)
+        {
+            return getMessage(input).Equals("version", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

@@ -6,16 +6,13 @@ using org.scriptFiend.IRC.Lines;
 
 namespace org.scriptFiend.Modules
 {
-    abstract class Module
+    public abstract class Module
     {
-        public Line line;
+        protected Line line;
 
-        public string ActivateTrigger { get; set; }
-
-        public Module(Line line, string trigger)
+        public Module(Line line)
         {
             this.line = line;
-            this.ActivateTrigger = trigger;
         }
 
         public virtual string getMessage(string input)
@@ -28,45 +25,16 @@ namespace org.scriptFiend.Modules
             return input.Substring(1, input.IndexOf('!') -1);
         }
 
-        public virtual string removeTag(string tag, string input)
+        //Removes a string from the beginning of another string
+        public virtual string removeTag(string tag, string message)
         {
-            StringBuilder t = new StringBuilder();
-            int index = 0;
-            for (int i = 0; i < input.Length; i++)
-            {
-                if (input[i] == tag[index])
-                {
-                    index++;
-                    if (tag.Length == index)
-                    {
-                        i++;
-                        for (int j = i; j < input.Length; j++)
-                        {
-                            t.Append(input[j]);
-                        }
-                        return t.ToString();
-                    }
-                    continue;
-                }
-                else
-                {
-                    if (index != 0)
-                    {
-                        for (int j = (i - index); j < i; j++)
-                        {
-                            t.Append(input[j]);
-                        }
-                        index = 0;
-                    }
-                    t.Append(input[i]);
-                }
-            }
-            return t.ToString();
+            int index = message.IndexOf(tag);
+            return (index < 0) ? message : message.Remove(index, tag.Length);          
         }
 
-        public virtual bool react(string input)
+        public bool react(string input)
         {
-            if (getMessage(input).StartsWith(ActivateTrigger))
+            if (activate(input))
             {
                 return run(input);
             }
@@ -74,5 +42,7 @@ namespace org.scriptFiend.Modules
         }
 
         public abstract bool run(string input);
+
+        public abstract bool activate(string input);
     }
 }

@@ -6,7 +6,7 @@ using org.scriptFiend.Modules;
 
 namespace org.scriptFiend.IRC.Lines
 {
-    interface Line
+    public interface Line
     {
         IRCServer Server { get; set; }
         List<string> Messages { get; set; }

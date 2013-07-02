@@ -6,7 +6,7 @@ using org.scriptFiend.Modules;
 
 namespace org.scriptFiend.IRC.Lines
 {
-    class ChannelLine : Line
+    public class ChannelLine : Line
     {
         public IRCServer Server { get; set; }
         public string Name { get; set; }
@@ -22,7 +22,6 @@ namespace org.scriptFiend.IRC.Lines
             Users = new List<IRCUser>();
             Modes = new List<char>();
             Modules = new List<Module>();
-            Modules.Add(new Modules.Channel.Poker.Poker(this));
             Modules.Add(new Modules.Channel.Speak.Speak(this));
             Modules.Add(new Modules.Channel.Admin.Debug(this));
             Modules.Add(new Modules.Channel.Admin.Kill(this));
@@ -31,7 +30,7 @@ namespace org.scriptFiend.IRC.Lines
 
         public void addUser(string name)
         {
-            char[] chars = name.Substring(0, 1).ToCharArray();  
+            char[] rankChars = name.Substring(0, 1).ToCharArray();  
             if (Server.getUser(name) == null)
             {
                 Server.addUser(name);
@@ -45,11 +44,11 @@ namespace org.scriptFiend.IRC.Lines
                 {
                     user.ChannelModes.Add(this, new List<char>());
                 }
-                if (IRCUser.SymbolToMode(chars[0]) != null)
+                if (IRCUser.SymbolToMode(rankChars[0]) != null)
                 {
-                    if (!user.ChannelModes[this].Contains(IRCUser.SymbolToMode(chars[0]).Value))
+                    if (!user.ChannelModes[this].Contains(IRCUser.SymbolToMode(rankChars[0]).Value))
                     {
-                        user.ChannelModes[this].Add(IRCUser.SymbolToMode(chars[0]).Value);
+                        user.ChannelModes[this].Add(IRCUser.SymbolToMode(rankChars[0]).Value);
                     }
                 }
                 Users.Add(user);

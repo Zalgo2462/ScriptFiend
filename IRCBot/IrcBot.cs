@@ -12,7 +12,7 @@ using org.scriptFiend.SQL;
 namespace org.scriptFiend
 {
 
-    class IrcBot
+    public class IrcBot
     {
         public const string admin = "Wade";
         public static string HOMEPATH = (Environment.OSVersion.Platform == PlatformID.Unix ||
@@ -47,7 +47,11 @@ namespace org.scriptFiend
         public static void init()
         {
             if(!File.Exists(SQLFILEPATH)) {
-                Console.WriteLine(SQLFILEPATH);
+                Console.WriteLine("Creating {0}",SQLFILEPATH);
+                if (!Directory.Exists(HOMEPATH))
+                {
+                    Directory.CreateDirectory(HOMEPATH);
+                }
                 FileStream initializer = File.Open(SQLFILEPATH, FileMode.Create);
                 initializer.Close();                
                 DBC.createDB();

@@ -7,7 +7,7 @@ using org.scriptFiend.Modules.Private;
 
 namespace org.scriptFiend.IRC.Lines
 {
-    class PrivateLine : Line
+    public class PrivateLine : Line
     {
         public IRCServer Server { get; set; }
         public IRCUser User { get; set; }
