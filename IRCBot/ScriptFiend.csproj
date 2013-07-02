@@ -75,20 +75,12 @@
     <Compile Include="IRC\Lines\CTCPLine.cs" />
     <Compile Include="IRC\Lines\Line.cs" />
     <Compile Include="IRC\Lines\PrivateLine.cs" />
-    <Compile Include="Modules\ActivatedModule.cs" />
     <Compile Include="Modules\Channel\Admin\Debug.cs" />
     <Compile Include="Modules\Channel\Admin\Die.cs" />
     <Compile Include="Modules\Channel\Admin\Part.cs" />
-    <Compile Include="Modules\Channel\Poker\Card.cs" />
-    <Compile Include="Modules\Channel\Poker\Deck.cs" />
-    <Compile Include="Modules\Channel\Poker\Hand.cs" />
-    <Compile Include="Modules\Channel\Poker\Tasks\RegEndTask.cs" />
     <Compile Include="Modules\Private\Login.cs" />
     <Compile Include="Modules\Private\Register.cs" />
     <Compile Include="Modules\Util\LoopTask.cs" />
-    <Compile Include="Modules\Channel\Poker\Player.cs" />
-    <Compile Include="Modules\Channel\Poker\Poker.cs" />
-    <Compile Include="Modules\Channel\Poker\Tasks\RegistrationTask.cs" />
     <Compile Include="Modules\CTCP\Finger.cs" />
     <Compile Include="Modules\CTCP\Ping.cs" />
     <Compile Include="Modules\CTCP\Time.cs" />
@@ -126,7 +118,20 @@
   <ItemGroup>
     <None Include="SQL\App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Modules\Channel\Calc\" />
+    <Folder Include="Modules\Channel\Define\" />
+    <Folder Include="Modules\Channel\Dice\" />
+    <Folder Include="Modules\Channel\FML\" />
+    <Folder Include="Modules\Channel\Google\" />
+    <Folder Include="Modules\Channel\Insult\" />
+    <Folder Include="Modules\Channel\Poker\" />
+    <Folder Include="Modules\Channel\Translate\" />
+    <Folder Include="Modules\Channel\Urban\" />
+    <Folder Include="Modules\Channel\Weather\" />
+    <Folder Include="Modules\Channel\Wiki\" />
+    <Folder Include="Modules\Channel\Wolfram\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
