@@ -30,7 +30,7 @@ namespace org.scriptFiend.IRC
             //whois();
         }
 
-        private void whois()
+        public void whois()
         {
             foreach (string str in Services)
             {

@@ -23,6 +23,7 @@ namespace org.scriptFiend.IRC.Lines
             Modes = new List<char>();
             Modules = new List<Module>();
             Modules.Add(new Modules.Channel.Speak.Speak(this));
+            Modules.Add(new Modules.Channel.Dice.Dice(this));
             Modules.Add(new Modules.Channel.Admin.Debug(this));
             Modules.Add(new Modules.Channel.Admin.Kill(this));
             Modules.Add(new Modules.Channel.Admin.Part(this));

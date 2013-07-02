@@ -12,7 +12,7 @@ using org.scriptFiend.SQL;
 namespace org.scriptFiend
 {
 
-    public class IrcBot
+    internal class IrcBot
     {
         public const string admin = "Wade";
         public static string HOMEPATH = (Environment.OSVersion.Platform == PlatformID.Unix ||

@@ -26,7 +26,7 @@ namespace org.scriptFiend.Modules
         }
 
         //Removes a string from the beginning of another string
-        public virtual string removeTag(string tag, string message)
+        public string removeTag(string tag, string message)
         {
             int index = message.IndexOf(tag);
             return (index < 0) ? message : message.Remove(index, tag.Length);          

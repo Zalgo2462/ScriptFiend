@@ -78,6 +78,7 @@
     <Compile Include="Modules\Channel\Admin\Debug.cs" />
     <Compile Include="Modules\Channel\Admin\Die.cs" />
     <Compile Include="Modules\Channel\Admin\Part.cs" />
+    <Compile Include="Modules\Channel\Dice\Dice.cs" />
     <Compile Include="Modules\Private\Login.cs" />
     <Compile Include="Modules\Private\Register.cs" />
     <Compile Include="Modules\Util\LoopTask.cs" />
@@ -121,7 +122,6 @@
   <ItemGroup>
     <Folder Include="Modules\Channel\Calc\" />
     <Folder Include="Modules\Channel\Define\" />
-    <Folder Include="Modules\Channel\Dice\" />
     <Folder Include="Modules\Channel\FML\" />
     <Folder Include="Modules\Channel\Google\" />
     <Folder Include="Modules\Channel\Insult\" />

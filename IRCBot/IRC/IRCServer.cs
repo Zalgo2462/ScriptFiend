@@ -89,7 +89,7 @@ namespace org.scriptFiend.IRC
             MessageListener.Start();            
         }
 
-        public void writeLine(string str)
+        internal void writeLine(string str)
         {
             lock (writeLock)
             {
@@ -98,7 +98,7 @@ namespace org.scriptFiend.IRC
             }
         }
 
-        public string readLine()
+        internal string readLine()
         {
             lock (readLock)
             {
@@ -450,7 +450,7 @@ namespace org.scriptFiend.IRC
 
 
 
-        private bool isCTCP(string input) {
+        public static bool isCTCP(string input) {
             string message = input.Substring(input.IndexOf(":", 1) + 1);
             char[] messageArray = message.ToCharArray();
             if (((byte)messageArray[0]) == 1 && ((byte)messageArray[messageArray.Length - 1]) == 1)

@@ -16,9 +16,9 @@ namespace org.scriptFiend.IRC
       
         public string NICK = "ScriptFiend";
 
-        public InputManager IM { get; set; }
+        internal InputManager IM { get; set; }
 
-        public List<IRCServer> Servers { get; set; }
+        internal List<IRCServer> Servers { get; set; }
 
 
         public IRCClient()
