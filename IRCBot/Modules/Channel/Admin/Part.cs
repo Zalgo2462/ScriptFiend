@@ -16,13 +16,12 @@ namespace org.scriptFiend.Modules.Channel.Admin
             line = chan;
         }
 
-        public override bool run(string input)
+        public override void run(string input)
         {
             if (line.Server.containsAdmin(line.Server.getUser(getUser(input))))
             {
                 line.part();
             }
-            return true;
         }
 
         public override bool activate(string input)

@@ -32,16 +32,15 @@ namespace org.scriptFiend.Modules
             return (index < 0) ? message : message.Remove(index, tag.Length);          
         }
 
-        public bool react(string input)
+        public void react(string input)
         {
             if (activate(input))
             {
-                return run(input);
+                run(input);
             }
-            return false;
         }
 
-        public abstract bool run(string input);
+        public abstract void run(string input);
 
         public abstract bool activate(string input);
     }

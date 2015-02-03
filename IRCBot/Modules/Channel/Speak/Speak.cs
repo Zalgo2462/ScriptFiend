@@ -14,12 +14,11 @@ namespace org.scriptFiend.Modules.Channel.Speak
         {
         }
 
-        public override bool run(string input)
+        public override void run(string input)
         {
             string message = getMessage(input);
             string sayMessage = removeTag(TAG, message);
             line.writeLine(sayMessage);
-            return true;
         }
 
         public override bool activate(string input)

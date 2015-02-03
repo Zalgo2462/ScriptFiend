@@ -26,6 +26,7 @@ namespace org.scriptFiend.Cmd
             inputThread.Abort();
         }
 
+        //TODO: Modularize GetInput()
         private void getInput()
         {
             string input = null;
@@ -183,7 +184,7 @@ namespace org.scriptFiend.Cmd
                             Console.WriteLine(e.Message);
                         }
                     }
-                    else if (input.StartsWith("register"))
+                    else if (input.StartsWith("register", StringComparison.OrdinalIgnoreCase))
                     {
                         IRCServer serv = client.getServer(splitInput[1]);
                         IRCUser user = serv.getUser(splitInput[2]);

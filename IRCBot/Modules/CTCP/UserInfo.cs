@@ -13,10 +13,9 @@ namespace org.scriptFiend.Modules.CTCP
         {
         }
 
-        public override bool run(string input)
+        public override void run(string input)
         {
             line.writeLine("USERINFO Author: Zalgo2462");
-            return true;
         }
 
         public override bool activate(string input)

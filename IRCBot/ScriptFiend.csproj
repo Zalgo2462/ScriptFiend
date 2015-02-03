@@ -11,8 +11,10 @@
     <RootNamespace>org.scriptFiend</RootNamespace>
     <AssemblyName>scriptFiend</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -38,6 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -47,21 +49,32 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Json, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Microsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Server.Common, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Microsoft.Server.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files\SQLite.NET\bin\System.Data.SQLite.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>True</Private>
+    <Reference Include="System.Data.SQLite">
+      <HintPath>bin\Debug\System.Data.SQLite.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -78,7 +91,9 @@
     <Compile Include="Modules\Channel\Admin\Debug.cs" />
     <Compile Include="Modules\Channel\Admin\Die.cs" />
     <Compile Include="Modules\Channel\Admin\Part.cs" />
+    <Compile Include="Modules\Channel\Calc\Calculator.cs" />
     <Compile Include="Modules\Channel\Dice\Dice.cs" />
+    <Compile Include="Modules\Channel\Urban\UrbanDictionary.cs" />
     <Compile Include="Modules\Private\Login.cs" />
     <Compile Include="Modules\Private\Register.cs" />
     <Compile Include="Modules\Util\LoopTask.cs" />
@@ -117,17 +132,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SQL\App.config" />
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Modules\Channel\Calc\" />
     <Folder Include="Modules\Channel\Define\" />
     <Folder Include="Modules\Channel\FML\" />
     <Folder Include="Modules\Channel\Google\" />
     <Folder Include="Modules\Channel\Insult\" />
     <Folder Include="Modules\Channel\Poker\" />
     <Folder Include="Modules\Channel\Translate\" />
-    <Folder Include="Modules\Channel\Urban\" />
     <Folder Include="Modules\Channel\Weather\" />
     <Folder Include="Modules\Channel\Wiki\" />
     <Folder Include="Modules\Channel\Wolfram\" />

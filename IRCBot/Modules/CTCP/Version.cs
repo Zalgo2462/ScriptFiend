@@ -13,10 +13,9 @@ namespace org.scriptFiend.Modules.CTCP
         {
         }
 
-        public override bool run(string input)
+        public override void run(string input)
         {
-            line.writeLine("VERSION ScriptFiendClient:1.0:" + Environment.OSVersion.VersionString);
-            return true;
+            line.writeLine("VERSION ScriptFiend IRCBot:1.0: " + Environment.OSVersion.VersionString);
         }
 
         public override bool activate(string input)

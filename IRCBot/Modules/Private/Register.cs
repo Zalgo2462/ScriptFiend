@@ -17,7 +17,7 @@ namespace org.scriptFiend.Modules.Private
         {
         }
 
-        public override bool run(string input)
+        public override void run(string input)
         {
             string message = getMessage(input);
             string password = removeTag(TAG, message);
@@ -50,7 +50,6 @@ namespace org.scriptFiend.Modules.Private
             {
                 line.writeLine("Login Failure");
             }
-            return true;
         }
 
         public override bool activate(string input)

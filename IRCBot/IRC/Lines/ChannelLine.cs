@@ -24,6 +24,8 @@ namespace org.scriptFiend.IRC.Lines
             Modules = new List<Module>();
             Modules.Add(new Modules.Channel.Speak.Speak(this));
             Modules.Add(new Modules.Channel.Dice.Dice(this));
+            Modules.Add(new Modules.Channel.Calc.Calculator(this));
+            Modules.Add(new Modules.Channel.Urban.UrbanDictionary(this));
             Modules.Add(new Modules.Channel.Admin.Debug(this));
             Modules.Add(new Modules.Channel.Admin.Kill(this));
             Modules.Add(new Modules.Channel.Admin.Part(this));

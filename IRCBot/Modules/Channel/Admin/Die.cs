@@ -13,13 +13,12 @@ namespace org.scriptFiend.Modules.Channel.Admin
         {
         }
 
-        public override bool run(string input)
+        public override void run(string input)
         {
             if (!line.Server.Client.kill())
             {
                 line.writeLine("Failed to quit: " + line.Server.ADDRESS);
             }
-            return true;
         }
 
         public override bool activate(string input)

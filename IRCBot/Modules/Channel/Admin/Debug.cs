@@ -18,7 +18,7 @@ namespace org.scriptFiend.Modules.Channel.Admin
             line = chan;
         }
 
-        public override bool run(string input)
+        public override void run(string input)
         {
             string command = removeTag(TAG, getMessage(input));
             string[] items = command.Split(' ');
@@ -46,7 +46,6 @@ namespace org.scriptFiend.Modules.Channel.Admin
                     line.writeLine(modString);
                 }
             }
-            return true;
         }
 
         public override bool activate(string input)
