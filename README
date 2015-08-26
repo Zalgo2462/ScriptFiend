@@ -1,1 +1,5 @@
 Modular C# irc bot
+Script Fiend runs in a terminal, can connect to multiple IRC servers and rooms, and can handle multiple requests at a time.
+Modules can be built in the source code at the moment. 
+To create new modules extend Module.cs and add the module to a IRC Line such as ChannelLine.cs.
+Eventually, the bot will be able to dynamically load dll files for modules. However this functionality is not present at this time.
