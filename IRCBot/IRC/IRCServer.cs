@@ -460,6 +460,7 @@ namespace org.scriptFiend.IRC
             return false;
         }
 
+        //TODO: Clean this up. This is just horrible.
         private void checkMessages()
         {
             while (Alive)
